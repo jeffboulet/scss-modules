@@ -1,0 +1,19 @@
+$color : #000 !default;
+
+@function makelongboxshadow($color) {
+  $val: 0px 0px $color;
+  @for $i from 1 through 200 {
+    // if the farthest end of the shadow is too light adjust the lighten value
+    $val: #{$val}, #{$i}px #{$i}px #{lighten($color,($i * .1))};
+  }
+  @return $val;
+}
+
+@mixin longboxshadow($color) {
+  text-shadow: makelongboxshadow($color);
+}
+
+// USE
+.long-box-shadow {
+  @include longboxshadow(#ff0000);
+}
